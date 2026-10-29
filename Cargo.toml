@@ -1,9 +1,7 @@
 # SPDX-FileCopyrightText: 2026 roolrz
 # SPDX-License-Identifier: Apache-2.0
 
-bin = [
-    { name = "hyper-less", path = "src/main.rs", test = false, bench = false },
-]
+bin = [{name = "hyper-less", path = "src/main.rs", test = false, bench = false}]
 
 [package]
 name = "hyper-less"
@@ -13,30 +11,41 @@ license = "Apache-2.0"
 repository = "https://github.com/HypeR-Proj/less"
 publish = false
 autotests = false
+workspace = ".."
+
+[dependencies]
 
 [dependencies.clap]
-version = "=4.6.6"
-features = [
-    "derive",
-]
+workspace = true
+features = ["derive"]
 
 [dependencies.hyper-os]
-version = "=0.0.0"
+workspace = true
 
 [dependencies.hyper-rt]
-version = "=0.0.0"
-features = [
-    "std",
-]
+workspace = true
+features = ["std"]
+
+[target]
+
+[target."cfg(target_os = \"hyper\")"]
+
+[target."cfg(target_os = \"hyper\")".dependencies]
 
 [target."cfg(target_os = \"hyper\")".dependencies.hyper-text-ui-shared]
-version = "=0.0.0"
+workspace = true
 
 [target."cfg(target_os = \"hyper\")".dependencies.hyper-clap-shared]
-version = "=0.0.0"
+workspace = true
+
+[target."cfg(not(target_os = \"hyper\"))"]
+
+[target."cfg(not(target_os = \"hyper\"))".dependencies]
 
 [target."cfg(not(target_os = \"hyper\"))".dependencies.hyper-text-ui]
-version = "=0.0.0"
+workspace = true
+
+[lints]
 
 [lints.clippy]
 doc_markdown = "deny"
@@ -55,12 +64,4 @@ unsafe_op_in_unsafe_fn = "deny"
 
 [lints.rust.unexpected_cfgs]
 level = "warn"
-check-cfg = [
-    "cfg(target_os, values(\"hyper\"))",
-]
-
-[workspace]
-members = [
-    ".",
-]
-resolver = "3"
+check-cfg = ["cfg(target_os, values(\"hyper\"))"]
