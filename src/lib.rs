@@ -79,3 +79,6 @@ pub struct Args {
     /// File to open (omit or use - for stdin).
     pub file: Option<std::path::PathBuf>,
 }
+
+#[cfg(target_os = "hyper")]
+extern crate hyper_clap_shared as clap;

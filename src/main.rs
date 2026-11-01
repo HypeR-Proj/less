@@ -4,8 +4,6 @@
 //! Fullscreen pager with independent keyboard and piped standard input.
 
 #[cfg(target_os = "hyper")]
-extern crate hyper_clap_shared as _;
-#[cfg(target_os = "hyper")]
 extern crate hyper_text_ui_shared as hyper_text_ui;
 use clap::Parser;
 use hyper_less::Content;
@@ -285,3 +283,6 @@ fn main() -> ExitCode {
         }
     }
 }
+
+#[cfg(target_os = "hyper")]
+extern crate hyper_clap_shared as clap;
